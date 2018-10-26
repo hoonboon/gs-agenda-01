@@ -33,10 +33,16 @@ export async function stop() {
 }
 
 async function defineAndScheduleAllJobs () {
-    // TODO: load target JobDefs from database
-    const aJob = jobStore.getJobDef("HelloJob");
-    agenda.define(aJob.jobName, (job: Agenda.Job, done: (err?: Error) => void) => { 
-        aJob.startProcess(done);
-    });
-    await agenda.every(aJob.jobSchedule, aJob.jobName);
+    // this function determines which job from the jobStore to be scheduled
+    // TODO: load targetJobsClassName from database/ env instead of hardcoded here
+    // TODO: allow user to suspend job/ change job schedule
+    const targetJobsClassName = ["HelloJob", "Hello1Job", "Hello2Job"];
+    
+    for (const jobClassName of targetJobsClassName) {
+        const aJob = jobStore.getJobDef(jobClassName);
+        agenda.define(aJob.jobName, (job: Agenda.Job, done: (err?: Error) => void) => { 
+            aJob.startProcess(done);
+        });
+        await agenda.every(aJob.jobSchedule, aJob.jobName);
+    }
 }
