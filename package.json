@@ -12,7 +12,7 @@
     "clear-prev-contents": "ts-node ./shell/clearPrevContents.ts",
     "start-dev": "ts-node ./src/app.ts",
     "serve-worker": "node ./dist/app.js",
-    "start-worker": "npm run build && npm run serve",
+    "start-worker": "npm run build && npm run serve-worker",
     "serve-web": "node ./dist/webapp.js",
     "start-web": "npm run build && npm run serve-web",
     "test": "echo \"Error: no test specified\" && exit 1"
